@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas画布6</title>
+	<style type="text/css">
+	</style>
+</head>
+<body>
+	
+	<script type="text/javascript">
+
+
+			var canvas = document.createElement( 'canvas' );
+		    canvas.width = 900;
+		    canvas.height = 600;
+		    canvas.style.border = '1px solid red';
+		    document.body.appendChild( canvas );
+		    // 获得 CanvasRenderingContext2D 对象		    
+		    // 设置 起点
+		    var ctx = canvas.getContext( '2d' );
+
+    		var url = 'imgs/士兵(1).png';
+		    // 创建 img 对象
+		    var img = new Image(); // 就是 img 标签
+		    // 设置 src 属性为 图片
+		    img.src = url;
+
+		    // 绘图
+		    img.onload = function () {
+		    	
+		    	console.log(img.width/4);
+		    	console.log(img.height/4);
+		    	var width=img.width/4;
+		    	var height=img.height/4;
+		    	var sx=0;
+		    	var sy=0;
+		    	var dx=10;
+		    	var dy=10;
+
+		    	var xSpeed=0;
+		    	var ySpeed=0;
+		    	// var xSpeed=7;
+		    	// var ySpeed=3;
+		    	var timer;
+		    	// timer=setInterval(move,600);
+
+		    	ctx.drawImage(img,sx*width,sy*height,width,height,dx,dy,width,height);
+
+		        function move() {
+
+			        ctx.clearRect( 0,0,canvas.width,canvas.height);
+			        sx++;
+			        ctx.drawImage(img,sx*width,sy*height,width,height,dx+=xSpeed,dy+=ySpeed,width,height);
+
+		            if(sx>=3){
+		            	sx=-1;
+		            };
+		            
+		            if(dx>canvas.width){
+		            	dx=(0-width);
+		            };
+		            if(dx<(0-width)){
+		            	dx=canvas.width;
+		            };
+		            if(dy>canvas.height){
+		            	dy=(0-height);
+		            };
+		            if(dy<(0-height)){
+		            	dy=canvas.height;
+		            };
+		        };
+
+		        document.onkeydown=function(ev){
+		    	
+			    	console.log(ev.keyCode);
+			    	if(ev.keyCode==37){
+			    		clearInterval(timer);
+			    		sy=1;
+			    		xSpeed=-7;
+			    		ySpeed=0;
+			    		timer=setInterval(move,200);
+			    	}
+			    	if(ev.keyCode==39){
+			    		clearInterval(timer);
+			    		sy=2;
+			    		xSpeed=7;
+			    		ySpeed=0;
+			    		timer=setInterval(move,200);
+			    	}
+			    	if(ev.keyCode==38){
+			    		clearInterval(timer);
+			    		sy=3;
+			    		xSpeed=0;
+			    		ySpeed=-3;
+			    		timer=setInterval(move,200);
+			    	}
+			    	if(ev.keyCode==40){
+			    		clearInterval(timer);
+			    		sy=0;
+			    		xSpeed=0;
+			    		ySpeed=3;
+			    		timer=setInterval(move,200);
+			    	}
+		    	}
+
+		    };
+
+	</script>
+</body>
+</html>
